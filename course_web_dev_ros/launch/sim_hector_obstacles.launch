@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+
+    <arg name="debug" default="false"/>
+    <arg name="gui" default="false"/>
+    <arg name="pause" default="false"/>
+    <arg name="headless" default="false"/>
+    <arg name="verbose" default="true"/>
+
+    <include file="$(eval find('tc_worlds_robots') + '/launch/world_ardrone_igniteworld.launch')">
+        <arg name="debug" value="$(arg debug)" />
+        <arg name="gui" value="$(arg gui)" />
+        <arg name="pause" value="$(arg pause)"/>
+        <arg name="headless" value="$(arg headless)"/>
+        <arg name="verbose" value="$(arg verbose)"/>
+    </include>
+
+    <arg name="put_robot_in_world" default="true" />
+    <arg name="put_robot_in_world_package" default="tc_worlds_robots" />
+    <arg name="put_robot_in_world_launch" default="spawn_hector.launch" />
+
+    <group if="$(arg put_robot_in_world)">
+        <include file="$(eval find(put_robot_in_world_package) + '/launch/' + put_robot_in_world_launch)">
+        </include>
+    </group>
+
+</launch>
